@@ -1,36 +1,45 @@
 # Smart Energy Meter using IoT & Blynk Interface
 
-## 📌 Project Overview
-[cite_start]This project addresses the inefficiencies of conventional electricity billing by automating data collection and providing real-time usage transparency[cite: 55, 56]. [cite_start]The system tracks voltage, current, and power consumption, calculating the estimated bill and displaying it on a mobile dashboard (Blynk)[cite: 58].
+## Project Overview
+This project addresses the inefficiencies of conventional electricity billing systems by automating data collection and providing real-time usage transparency to the user. The system tracks voltage, current, and power consumption in real-time, calculates the estimated bill based on unit cost, and displays the data on a mobile dashboard via the Blynk application.
 
-## 🛠 Hardware Architecture
-[cite_start]The system is built around the **ESP32 Microcontroller** due to its integrated Wi-Fi and analog processing capabilities[cite: 113].
-* [cite_start]**Controller:** ESP32 WROOM (Interfaced with Arduino IDE)[cite: 63].
-* [cite_start]**Voltage Sensor:** ZMPT101B (Connected to GPIO 35)[cite: 105].
-    * [cite_start]*Capability:* Transformer-based isolation sensing up to 250V AC[cite: 116].
-* [cite_start]**Current Sensor:** SCT-013 Split Core Transformer (Connected to GPIO 34)[cite: 107].
-    * [cite_start]*Capability:* Non-invasive sensing up to 30A[cite: 118].
-* [cite_start]**Display:** 16x2 LCD & Blynk Mobile App[cite: 109].
+## Objectives
+* To automate the electricity billing process and reduce manual errors.
+* To provide users with real-time access to energy consumption data via a smartphone.
+* To promote energy conservation through increased usage awareness.
 
-## ⚙️ Methodology & Logic
-The system utilizes the sampling theory to calculate RMS values for AC signals.
-1.  **Data Acquisition:** The ESP32 samples the analog output from the ZMPT101B and SCT-013.
-2.  **Processing:** Using the sampling window method, the code calculates Root Mean Square (RMS) voltage and current.
-3.  **Billing Algorithm:**
-    $$\text{Cost} = (\text{Power (kW)} \times \text{Time (h)}) \times \text{Unit Rate}$$
-4.  [cite_start]**IoT Transmission:** Data is pushed to the Blynk cloud via Wi-Fi for remote monitoring[cite: 59].
+## Hardware Architecture
+The system is built around the **ESP32 Microcontroller** due to its integrated Wi-Fi capabilities and high processing speed for analog sampling.
 
-## 📸 Prototype
-![Circuit Prototype](schematics/circuit_image.jpg)
-*(Note: Upload the image from Slide 12 of your PPT to the schematics folder)*
+* **Microcontroller:** ESP32 WROOM (Interfaced via Arduino IDE).
+* **Voltage Sensor:** ZMPT101B (Connected to GPIO 35).
+    * Used for precise AC voltage sensing (up to 250V).
+* **Current Sensor:** SCT-013 Split Core Transformer (Connected to GPIO 34).
+    * Non-invasive current sensing (up to 30A).
+* **Display Interface:** Blynk Mobile App (IoT Dashboard).
 
-## 📂 Repository Structure
-* `/src`: Firmware code for ESP32 (Energy calculation and Blynk logic).
-* `/docs`: Project synopsis and presentation slides.
+## Technical Implementation
+The system utilizes sampling theory to calculate the Root Mean Square (RMS) values for AC signals, ensuring accurate power readings.
 
-## 🚀 Future Scope
-* Integration with 3-Phase systems for industrial application.
-* [cite_start]Implementation of "Theft Detection" algorithms by monitoring neutral line current[cite: 382].
+1.  **Data Acquisition:** The ESP32 samples the analog output from the ZMPT101B and SCT-013 sensors.
+2.  **Signal Processing:** The raw analog data is processed to filter noise and calculate Vrms and Irms.
+3.  **Billing Logic:** The system applies a "Cost per Unit" factor to the calculated power usage to generate a real-time estimated bill.
+    * *Formula:* Cost = (Power in kW * Time in Hours) * Unit Rate
+4.  **IoT Transmission:** The processed data is transmitted via Wi-Fi to the Blynk Cloud, allowing the user to view voltage, current, power, and total cost from anywhere.
 
-## 👤 Author
+## Key Contributions
+* Interfaced the ESP32 WROOM with high-precision analog sensors.
+* Developed the firmware logic for real-time price calculation based on energy consumption.
+* Implemented the Wi-Fi communication stack to ensure stable data transmission to the Blynk application.
+
+## Repository Structure
+* `/src`: Contains the main firmware code (`.ino`) for the ESP32.
+* `/docs`: Includes the project synopsis and presentation slides used for review.
+
+## Future Scope
+* Integration with 3-Phase systems for industrial-grade monitoring.
+* Implementation of theft detection algorithms by monitoring neutral line current.
+* Adding a local OLED display for backup reading when Wi-Fi is unavailable.
+
+## Author
 **Kesava Satish Boppana**
